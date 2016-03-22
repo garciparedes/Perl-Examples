@@ -48,22 +48,63 @@ FECHA LÍMITE:
 
 
 #
-# Llamada a la subrutina main, que es la encagada de gestionar la ejecución del
-# programa.
+# main()
 #
-main();
+# Subrutina main. Es quien se encarga de gestionar la ejecución del programa.
+#
+sub main {
+
+    if($#ARGV+1 == 1){
+        $text = readFile();
+    } else {
+        $text = readSTDIN()
+    }
+
+     print customizeText($text);
+}
 
 
 
 #
-# Expresiones regulares:
-#   tagPhrase: Representa el lenguaje de las frases en castellano.
-#   tagNumber: Representa el lenguaje de los numeros multiplos de 5.
-#   tagRoman: Representa el lenguaje de los numeros romanos.
+# customizeText()
 #
-$tagPhrase = "([A-Z][^.]*.)";
-$tagNumber = "\\b([0-9]*[05])\\b";
-$tagRoman = "\\b([IVXLCDM]+)\\b";
+# Esta es la rutina encargada de realizar todos los cambios en el texto base que
+# indican las especificaciones del programa.
+#
+sub customizeText {
+    my ($text) = @_;
+
+    #
+    # Expresiones regulares:
+    #   tagPhrase: Representa el lenguaje de las frases en castellano.
+    #   tagNumber: Representa el lenguaje de los numeros multiplos de 5.
+    #   tagRoman: Representa el lenguaje de los numeros romanos.
+    #
+    $tagPhrase = "([A-Z][^.]*.)";
+    $tagNumber = "\\b([0-9]*[05])\\b";
+    $tagRoman = "\\b([IVXLCDM]+)\\b";
+
+    #
+    # Dividimos el texto base en frases para seguidamente buscar numeros enteros
+    # multiplos de 5, numeros romanos y por ultimo comprobamos si la longitud de
+    # la frase es multiplo de 3 y 5 para realizar los cambios correspondientes
+    # en cada caso.
+    #
+    while ($text =~ /$tagPhrase/g) {
+        my $line = $1;
+
+        $line =~ s/$tagNumber/[$1]/g;
+        $line =~ s/$tagRoman/($1)/g;
+
+        my $lenLine = length($line);
+        if($lenLine % 5 == 0 and $lenLine % 3 ==0) {
+                $line.="**";
+        }
+        $finalText .= "$line\n\n";
+
+    }
+    return $finalText;
+}
 
 
 
@@ -105,30 +146,7 @@ sub readSTDIN {
 
 
 #
-# main()
+# Llamada a la subrutina main, que es la encagada de gestionar la ejecución del
+# programa.
 #
-# Subrutina main. Es quien se encarga de gestionar la ejecución del programa.
-#
-sub main {
-
-    if($#ARGV+1 == 1){
-        $text = readFile();
-    } else {
-        $text = readSTDIN()
-    }
-
-
-    while ($text =~ /$tagPhrase/g) {
-        my $line = $1;
-
-        $line =~ s/$tagNumber/[$1]/g;
-        $line =~ s/$tagRoman/($1)/g;
-
-        my $lenLine = length($line);
-        if($lenLine % 5 == 0 and $lenLine % 3 ==0) {
-                $line.="**";
-        }
-
-        print "$line\n\n";
-    }
-}
+main();
