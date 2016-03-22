@@ -41,3 +41,22 @@ FECHA LÍMITE:
     30-Marzo-2016 a las 23:00
 
 =cut
+
+if($#ARGV+1 == 1){
+    $fileName = $ARGV[0];
+
+    open(my $file, "<", $fileName)
+        or die "--ERROR-- Imposible abrir [$fileName]: $!";
+
+    while (<$file>) {
+        $text .= $_;
+    }
+
+    close($file);
+
+} else {
+    while(<STDIN>) {
+        $text .= $_;
+    }
+}
+print "[\n$text]\n";
