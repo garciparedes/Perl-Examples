@@ -62,11 +62,16 @@ if($#ARGV+1 == 1){
 
 print "\n\n[\n$text]\n\n\n\n";
 
-$tagPhrase = "([A-Z][^\.]*\.)";
+$tagPhrase = "([A-Z][^.]*.)";
+$tagNumber = "\\b([0-9]*[05])\\b";
+$tagRoman = "\\b([IVXLCDM]+)\\b";
 
 
 while ($text =~ /$tagPhrase/g) {
     my $line = $1;
+
+    $line =~ s/$tagNumber/[$1]/g;
+    $line =~ s/$tagRoman/($1)/g;
 
     my $lenLine = length($line);
     if($lenLine % 5 == 0 and $lenLine % 3 ==0) {
