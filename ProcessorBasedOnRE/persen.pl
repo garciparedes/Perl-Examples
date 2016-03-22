@@ -59,4 +59,21 @@ if($#ARGV+1 == 1){
         $text .= $_;
     }
 }
-print "[\n$text]\n";
+
+print "\n\n[\n$text]\n\n\n\n";
+
+$tagPhrase = "([A-Z][^\.]*\.)";
+
+
+while ($text =~ /$tagPhrase/g) {
+    my $line = $1;
+
+    my $lenLine = length($line);
+    if($lenLine % 5 == 0 and $lenLine % 3 ==0) {
+            $line.="**";
+    }
+
+    print "$line\n\n";
+}
+
+print "\n\n";

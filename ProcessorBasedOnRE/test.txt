@@ -1,2 +1,1 @@
-Me llamo sergio.
-Tengo 21 años por lo que nací en MCMXCIV, y estoy aprendiendo perl.
+Me llam sergio. Tengo 21 años por lo que nací en MCMXCIV, y estoy aprendiendo perl. Esto es un texto de prueba para comprobar si mi aplicacion en perl divide bien las frases de un texto. en el caso de que lo hiciera esta frase se quedaría fuera por no empezar en mayuscula. Pero, en cambio esta no.
