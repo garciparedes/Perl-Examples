@@ -54,8 +54,33 @@ FECHA LÍMITE:
 sub main {
     my $text = getText();
 
-    print "$text\n";
+    #print "$text\n";
+    findURLs($text);
+}
 
+
+#
+# findURLs()
+#
+# TODO
+#
+sub findURLs() {
+    my ($text) = @_;
+
+    $tagUrlA = "(<a[^>]*href=\"([^\"]*)\"[^>]*>)";
+    $tagUrlImg = "(<img[^>]*src=\"([^\"]*)\"[^>]*>)";
+
+    while ($text =~ /$tagUrlA/g) {
+
+        print "[A] $2\n";
+
+    }
+
+    while ($text =~ /$tagUrlImg/g) {
+
+        print "[I] $2\n";
+
+    }
 }
 
 
