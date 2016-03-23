@@ -52,24 +52,34 @@ FECHA LÍMITE:
 # Subrutina main. Es quien se encarga de gestionar la ejecución del programa.
 #
 sub main {
-    if ($#ARGV+1 == 1){
-
-        $input = $ARGV[0];
-        if (isURL($input)){
-            print "URL\n";
-
-            $text = readURL($input);
-        } else {
-            $text = readFile($input);
-        }
-    } else {
-
-        $text = readSTDIN() ;
-
-    }
+    my $text = getText();
 
     print "$text\n";
 
+}
+
+
+
+#
+# getText()
+#
+# Subrutina encagada de obtener el texto de entrada. Este puede provenir de
+# distintas vias:
+#   - Entrada estandar
+#   - Ruta de un fichero como argumento al programa.
+#   - URL de internet como argumento al programa.
+#
+sub getText {
+    if ($#ARGV+1 == 1){
+        $input = $ARGV[0];
+        if (isURL($input)){
+            return readURL($input);
+        } else {
+            return readFile($input);
+        }
+    } else {
+        return readSTDIN() ;
+    }
 }
 
 
