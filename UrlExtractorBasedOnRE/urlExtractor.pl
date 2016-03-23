@@ -52,7 +52,104 @@ FECHA LÍMITE:
 # Subrutina main. Es quien se encarga de gestionar la ejecución del programa.
 #
 sub main {
-    #TODO
+    if ($#ARGV+1 == 1){
+
+        $input = $ARGV[0];
+        if (isURL($input)){
+            print "URL\n";
+
+            $text = readURL($input);
+        } else {
+            $text = readFile($input);
+        }
+    } else {
+
+        $text = readSTDIN() ;
+
+    }
+
+    print "$text\n";
+
+}
+
+
+
+#
+# isURL()
+#
+# Subrutina que devuelve un 1 en el caso de que el argumento sea una URL o un 0
+# en caso contrario.
+#
+sub isURL {
+    #TODO Hacer expression regular para las url más precisa.
+
+    $tagURL = "(https?://.*)";
+    my ($text) = @_;
+
+    if ($text =~ /$tagURL/) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+
+#
+# readFile()
+#
+# Subrutina encargada de leer desde fichero cuyo nombre se obtiene por la
+# linea de comandos.
+#
+sub readFile {
+    my ($fileName) = @_;
+
+    open(my $file, "<", $fileName)
+        or die "--ERROR-- Imposible abrir [$fileName]: $!";
+
+    while (<$file>) {
+        $text .= $_;
+    }
+
+    close($file);
+
+    return $text;
+}
+
+
+
+#
+# readURL()
+#
+# Subrutina encargada de obtener el fichero localizado en una URL pasada como
+# argumento.
+#
+sub readURL {
+    my ($input) = @_;
+
+    use HTTP::Tiny;
+
+    my $response = HTTP::Tiny->new->get($input);
+
+    if ($response->{success}) {
+        return $response->{content};
+    } else {
+        die "--ERROR-- Imposible obtener [$input]: $!";
+    }
+}
+
+
+
+#
+# readSTDIN()
+#
+# Subrutina encargada de leer desde la entreada estandar.
+#
+sub readSTDIN {
+    while(<STDIN>) {
+        $text .= $_;
+    }
+    return $text;
 }
 
 
