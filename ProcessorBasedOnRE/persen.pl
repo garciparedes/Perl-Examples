@@ -91,16 +91,16 @@ sub customizeText {
     # en cada caso.
     #
     while ($text =~ /$tagPhrase/g) {
-        my $line = $1;
+        my $phrase = $1;
 
-        $line =~ s/$tagNumber/[$1]/g;
-        $line =~ s/$tagRoman/($1)/g;
+        $phrase =~ s/$tagNumber/[$1]/g;
+        $phrase =~ s/$tagRoman/($1)/g;
 
-        my $lenLine = length($line);
-        if($lenLine % 5 == 0 and $lenLine % 3 ==0) {
-                $line.="**";
+        my $lenPhrase = length($phrase);
+        if($lenPhrase % 5 == 0 and $lenPhrase % 3 ==0) {
+                $phrase.="**";
         }
-        $finalText .= "$line\n\n";
+        $finalText .= "$phrase\n\n";
 
     }
     return $finalText;
