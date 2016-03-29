@@ -68,14 +68,14 @@ sub main {
 sub findURLs() {
     my ($text) = @_;
 
-    $tagUrl = "(https?://[^\"]+)";
+    $tagUrl = "([^\"]+)";
 
     $tagA =  "([aA][^>]*[hH][rR][eE][fF])";
     $tagImg = "([iI][mM][gG][^>]*[sS][rR][cC])";
 
     $tagAOrImg = "(" . $tagA . "|" . $tagImg . ")";
 
-    $tagPrefix = "<" . $tagAOrImg . "=\"";
+    $tagPrefix = "<\s*" . $tagAOrImg . "\s*=\s*\"";
 
     $tagPosFix = "\"[^>]*>";
 
