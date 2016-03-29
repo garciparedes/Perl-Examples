@@ -59,6 +59,7 @@ sub main {
 }
 
 
+
 #
 # findURLs()
 #
@@ -67,19 +68,26 @@ sub main {
 sub findURLs() {
     my ($text) = @_;
 
-    $tagUrlA = "(<a[^>]*href=\"([^\"]*)\"[^>]*>)";
-    $tagUrlImg = "(<img[^>]*src=\"([^\"]*)\"[^>]*>)";
+    $tagUrl = "(https?://[^\"]+)";
 
-    while ($text =~ /$tagUrlA/g) {
+    $tagA =  "([aA][^>]*[hH][rR][eE][fF])";
+    $tagImg = "([iI][mM][gG][^>]*[sS][rR][cC])";
 
-        print "[A] $2\n";
+    $tagAOrImg = "(" . $tagA . "|" . $tagImg . ")";
 
-    }
+    $tagPrefix = "<" . $tagAOrImg . "=\"";
 
-    while ($text =~ /$tagUrlImg/g) {
+    $tagPosFix = "\"[^>]*>";
 
-        print "[I] $2\n";
+    $tagPattern = $tagPrefix . $tagUrl . $tagPosFix;
 
+
+    while ($text =~ /$tagPattern/g) {
+        if(defined($2)){
+            print "[A] $4\n";
+        } else {
+            print "[I] $4\n";
+        }
     }
 }
 
