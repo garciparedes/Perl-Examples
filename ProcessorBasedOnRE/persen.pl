@@ -80,9 +80,9 @@ sub customizeText {
     #   tagNumber: Representa el lenguaje de los numeros multiplos de 5.
     #   tagRoman: Representa el lenguaje de los numeros romanos.
     #
-    $tagPhrase = "([A-Z][^.]*.)";
-    $tagNumber = "\\b([0-9]*[05])\\b";
-    $tagRoman = "\\b([IVXLCDM]+)\\b";
+    $tagPhrase = "([A-Z][^\\.]*\\.)";
+    $tagFiveMulNumber = "\\b([0-9]*[05])\\b";
+    $tagRomanNumber = "\\b([IVXLCDM]+)\\b";
 
     #
     # Dividimos el texto base en frases para seguidamente buscar numeros enteros
@@ -93,8 +93,9 @@ sub customizeText {
     while ($text =~ /$tagPhrase/g) {
         my $phrase = $1;
 
-        $phrase =~ s/$tagNumber/[$1]/g;
-        $phrase =~ s/$tagRoman/($1)/g;
+        #$phrase =~ s/\n//g;
+        $phrase =~ s/$tagFiveMulNumber/[$1]/g;
+        $phrase =~ s/$tagRomanNumber/($1)/g;
 
         my $lenPhrase = length($phrase);
         if($lenPhrase % 5 == 0 and $lenPhrase % 3 ==0) {
