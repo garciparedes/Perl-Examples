@@ -1,0 +1,12 @@
+Inicio del texto de prueba.
+
+Me llam Sergio. Tengo 20 años por lo que nací en MCMXCIV M que es lo mismo que 1995 pero no que 1994, y estoy aprendiendo perl. Esto es un texto de prueba para comprobar si mi aplicacion en perl divide bien las frases de un texto. en el caso de que lo hiciera bien esta frase se quedaría fuera por no empezar en mayuscula. Pero, en cambio esta no.Tampoco importa que el texto esté pegado.
+
+También pueden aparecer saltos de linea que no serán tenidos en cuenta a menos que estén dentro de una frase. Se podían haber omitido incluyendo la sentencia "$phrase =~ s/\n/ /g;" tal y como aparece en la linea 96 de persen pero dado que no era
+un requisito de la aplicación se ha dejado comentado.
+
+Obviamente este texto tiene errores para adecuarse a las exigencias de prueba del texto. Tampoco debería haber problemas escribiendo tildes y acentos ni eñes. Esta frase 100 CII tampoco debe ser capturada como una unidad porque no tiene punto final pero si será parte de la siguiente ya que no hay manera de aislarla sin impedir el uso de mayúsculas en nombres propios como Pedro, Juan o Sara     Pero esta si.
+
+
+
+Fin.
