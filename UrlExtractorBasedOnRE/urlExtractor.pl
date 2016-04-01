@@ -68,7 +68,8 @@ sub main {
 sub findURLs() {
     my ($text) = @_;
 
-    $tagUrl = "([^\"]+)";
+    #scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
+    $tagUrl = "([a-zA-Z][a-zA-Z0-9+.-]*:(//(\\w+\:\\w+\@)?[\\w.-]+(:[0-9]+)?)/?[\\w/.-]+(\\?[\\w=]+)?(#[\\w=]+)?)";
 
     $tagA =  "([aA][^>]*[hH][rR][eE][fF])";
     $tagImg = "([iI][mM][gG][^>]*[sS][rR][cC])";
