@@ -68,8 +68,11 @@ sub main {
 sub findURLs() {
     my ($text) = @_;
 
-    #scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
-
+    #
+    # Expresion regular encargada de capturar las URLs. Se ha diseñado siguiendo
+    # el siguiente patrón:
+    # scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
+    #
     $scheme = "[a-zA-Z][[:alnum:].-]*:";
     $host = "(//(\\w+\:\\w+\@)?[\\w.-]+(:[0-9]+)?)?";
     $path = "/?[\\w/.-]+";
@@ -77,16 +80,26 @@ sub findURLs() {
 
     $tagUrl = "(".$scheme.$host.$path.$extras.")";
 
+
+    #
+    # Expresiones regulares encargadas de capturar el inicio de las etiquetas
+    # html hasta el punto en el que empieza la URL
+    #
     $tagA =  "([aA][^>]*[hH][rR][eE][fF])";
     $tagImg = "([iI][mM][gG][^>]*[sS][rR][cC])";
-
     $tagAOrImg = "(" . $tagA . "|" . $tagImg . ")";
-
     $tagPrefix = "<\s*" . $tagAOrImg . "\s*=\s*\"";
 
+    #
+    # Expresion regular encargada de capturar el final de la etiqueta html para
+    # comprobar que esta está bien formada.
+    #
     $tagPosFix = "\"[^>]*>";
 
-    $tagPattern = $tagPrefix . $tagUrl . $tagPosFix;
+    #
+    # Expresion regular completa.
+    #
+    $tagPattern = $tagPrefix.$tagUrl.$tagPosFix;
 
 
     while ($text =~ /$tagPattern/g) {
